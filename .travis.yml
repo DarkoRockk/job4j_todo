@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - openjdk16
+
+sudo: false
+
+notifications:
+  email:
+    recipients:
+      - shadrin.dev@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
