@@ -4,4 +4,21 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>AddServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlet.AddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddServlet</servlet-name>
+    <url-pattern>/add.do</url-pattern>
+  </servlet-mapping>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>FindAllServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlet.FindAllServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindAllServlet</servlet-name>
+    <url-pattern>/findAll.do</url-pattern>
+  </servlet-mapping>
 </web-app>
