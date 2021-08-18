@@ -19,6 +19,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>FindAllServlet</servlet-name>
-    <url-pattern>/findAll.do</url-pattern>
+    <url-pattern>/find.do</url-pattern>
   </servlet-mapping>
 </web-app>
