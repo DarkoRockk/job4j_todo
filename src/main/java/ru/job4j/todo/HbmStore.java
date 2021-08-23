@@ -2,12 +2,14 @@ package ru.job4j.todo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javax.persistence.Query;
 import java.util.List;
+import java.util.function.Function;
 
 public class HbmStore implements Store, AutoCloseable {
 
@@ -24,49 +26,52 @@ public class HbmStore implements Store, AutoCloseable {
         return Lazy.INST;
     }
 
+
     @Override
     public List<Item> findAllItems() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List<Item> result = session.createQuery("from ru.job4j.todo.Item").list();
-        session.getTransaction().commit();
-        session.close();
-        return result;
+        return this.tx(session -> session.createQuery("from ru.job4j.todo.Item").list());
     }
 
     @Override
     public List<Item> findActiveItems() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List<Item> result = session.createQuery("from Item where done!=true order by id").list();
-        session.getTransaction().commit();
-        session.close();
-        return result;
+        return this.tx(session -> session.createQuery("from Item where done!='true' order by id").list());
     }
 
     @Override
     public Item saveItem(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
-        return item;
+        return this.tx(session -> {
+            session.save(item);
+            return item;
+        });
     }
 
     @Override
     public void updateItem(int id) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("update Item set done='true' where id=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        this.tx(session -> {
+            Query query = session.createQuery("update Item set done='true' where id=:id");
+            query.setParameter("id", id);
+            query.executeUpdate();
+            return null;
+        });
     }
 
     @Override
     public void close() throws Exception {
         StandardServiceRegistryBuilder.destroy(registry);
+    }
+
+    private <T> T tx(final Function<Session, T> command) {
+        final Session session = sf.openSession();
+        final Transaction tx = session.beginTransaction();
+        try {
+            T rsl = command.apply(session);
+            tx.commit();
+            return rsl;
+        } catch (final Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 }
