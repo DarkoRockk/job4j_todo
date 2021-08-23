@@ -10,5 +10,5 @@ public interface Store {
 
     Item saveItem(Item item);
 
-    Item updateItem(Item item);
+    void updateItem(int id);
 }

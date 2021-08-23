@@ -21,4 +21,13 @@
     <servlet-name>FindAllServlet</servlet-name>
     <url-pattern>/find.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlet.UpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/update.do</url-pattern>
+  </servlet-mapping>
+
 </web-app>

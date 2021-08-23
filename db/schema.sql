@@ -1,6 +1,6 @@
-CREATE TABLE item (
+CREATE TABLE IF NOT EXISTS item (
     id          SERIAL PRIMARY KEY,
-    description VARCHAR(2000),
+    description TEXT,
     created     TIMESTAMP,
-    done        BOOLEAN
+    done        TEXT
 );

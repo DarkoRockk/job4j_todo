@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.Query;
 import java.util.List;
 
 public class HbmStore implements Store, AutoCloseable {
@@ -54,13 +55,14 @@ public class HbmStore implements Store, AutoCloseable {
     }
 
     @Override
-    public Item updateItem(Item item) {
+    public void updateItem(int id) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.update(item);
+        Query query = session.createQuery("update Item set done='true' where id=:id");
+        query.setParameter("id", id);
+        query.executeUpdate();
         session.getTransaction().commit();
         session.close();
-        return item;
     }
 
     @Override

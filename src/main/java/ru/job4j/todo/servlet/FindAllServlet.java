@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class FindAllServlet extends HttpServlet {
@@ -20,14 +18,11 @@ public class FindAllServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Item> items = HbmStore.instOf().findAllItems();
-
-        resp.setContentType("application/json; charset=utf-8");
-        OutputStream output = resp.getOutputStream();
-        String json = GSON.toJson(items);
-        System.out.println(json);
-        output.write(json.getBytes(StandardCharsets.UTF_8));
-        output.flush();
-        output.close();
+        List<Item> list = HbmStore.instOf().findAllItems();
+        Gson gson = new GsonBuilder().create();
+        String jsonItems = gson.toJson(list);
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json");
+        resp.getWriter().write(jsonItems);
     }
 }

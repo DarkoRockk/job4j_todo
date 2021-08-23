@@ -12,14 +12,14 @@ public class Item {
     private int id;
     private String description;
     private Timestamp created;
-    private boolean done;
+    private String done;
 
     public Item() {}
 
     public Item(String description) {
         this.description = description;
         this.created = new Timestamp(System.currentTimeMillis());
-        this.done = false;
+        this.done = "false";
     }
 
     public int getId() {
@@ -46,11 +46,11 @@ public class Item {
         this.created = created;
     }
 
-    public boolean isDone() {
+    public String getDone() {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(String done) {
         this.done = done;
     }
 
