@@ -1,4 +1,4 @@
-package ru.job4j.todo;
+package ru.job4j.todo.model;
 
 import java.sql.Timestamp;
 import javax.persistence.*;

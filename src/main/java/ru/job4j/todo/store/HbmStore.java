@@ -1,4 +1,4 @@
-package ru.job4j.todo;
+package ru.job4j.todo.store;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import ru.job4j.todo.model.Item;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -29,7 +30,7 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public List<Item> findAllItems() {
-        return this.tx(session -> session.createQuery("from ru.job4j.todo.Item").list());
+        return this.tx(session -> session.createQuery("from Item").list());
     }
 
     @Override

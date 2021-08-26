@@ -1,4 +1,6 @@
-package ru.job4j.todo;
+package ru.job4j.todo.store;
+
+import ru.job4j.todo.model.Item;
 
 import java.util.List;
 

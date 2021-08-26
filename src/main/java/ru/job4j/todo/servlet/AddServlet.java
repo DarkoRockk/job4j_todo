@@ -1,7 +1,7 @@
 package ru.job4j.todo.servlet;
 
-import ru.job4j.todo.HbmStore;
-import ru.job4j.todo.Item;
+import ru.job4j.todo.store.HbmStore;
+import ru.job4j.todo.model.Item;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
