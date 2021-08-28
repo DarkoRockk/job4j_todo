@@ -14,6 +14,7 @@ function loadItems() {
             if (data[i]["done"] !== "true") {
                 items += "<tr>"
                     + "<td>" + data[i]["description"] + "</td>"
+                    + "<td>" + data[i]["user"]["name"] + "</td>"
                     + "<td>" + data[i]["created"] + "</td>"
                     + "<td>" + "Не выполнено  "
                     + "<input type='checkbox' id='setStatus' value=" + data[i]["id"] + ">"
@@ -28,6 +29,7 @@ function loadItems() {
                     if (data[i]["done"] === "true") {
                         $('#items').append("<tr style='background: #7dec4c'>"
                             + "<td>" + data[i]["description"] + "</td>"
+                            + "<td>" + data[i]["user"]["name"] + "</td>"
                             + "<td>" + data[i]["created"] + "</td>"
                             + "<td>" + "Выполнено  "
                             + "<input disabled type='checkbox' id='setStatus' checked value=" + data[i]["id"] + ">"

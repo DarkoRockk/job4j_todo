@@ -11,13 +11,17 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     private Timestamp created;
     private String done;
 
     public Item() {}
 
-    public Item(String description) {
+    public Item(String description, User user) {
         this.description = description;
+        this.user = user;
         this.created = new Timestamp(System.currentTimeMillis());
         this.done = "false";
     }
